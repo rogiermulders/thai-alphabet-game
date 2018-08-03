@@ -3,18 +3,19 @@
 @section('content')
 <div class="container">
     <form method="post">
-        @csrf
+        
+        
         <div class="row">
             <div class="col-sm-12 mid-div text-center game-huge">                
-        
-                @if(Session::has('flash_message_ok'))
+                
+                @if($yn == 'ok')                
                     <div class="alert alert-success flash-message" role="alert">
-                        {{Session::get('flash_message_ok')}}
+                        YES! :)
                     </div>
                 @endif
-                @if(Session::has('flash_message_fail'))
+                @if($yn === 'fail')
                     <div class="alert alert-danger flash-message" role="alert">
-                        {{Session::get('flash_message_fail')}}
+                        Nop :(
                     </div>
                 @endif
                 
@@ -38,14 +39,20 @@
             <div class="col-sm-12 mid-div">
                 
                 <table class="table table-striped table-hover game-huge">
-                    <tr>
-                        @foreach($answers as $rst)
+                    
+                        @foreach($answers as $i => $rst)
+                        
+                            @if($i % 5 === 0) <tr> @endif
+                                                     
                             <td class="text-center">
-                                <a href="/game/play?a={{$question->id}}&b={{$rst->id}}">{{$rst->letter}}</a>
+                                <div data-toggle="tooltip" data-html="true" data-placement="bottom" title='<img src="/storage/images/{{$rst->image}}"><br>{{$rst->phonetic}} '>
+                                    
+                                    <a href="/game/play?a={{$question->id}}&b={{$rst->id}}">                                    
+                                        {{$rst->letter}}
+                                    </a>
+                                </div>
                             </td>
                         @endforeach
-                    
-                    
                 </table>
             </div>
         </div>

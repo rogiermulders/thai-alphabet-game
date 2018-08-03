@@ -20,12 +20,11 @@ class GameController extends Controller {
     public function play(){
 
         if(!empty($_GET)){
+            
             if($_GET['a'] == $_GET['b']){                
-                Session::flash('flash_message_ok', 'Yes!!');
-                Session::flash('flash_message_fail', false);
+                $yn = 'ok';
             } else {
-                Session::flash('flash_message_fail', 'Nop :(');
-                Session::flash('flash_message_ok', false);
+                $yn = 'fail';
             }
         }
 
@@ -35,7 +34,7 @@ class GameController extends Controller {
         $all = $db;
         $count = count( $all ) - 1;
         $result = [];
-        for( $i = 0; $i < 5; $i++ ){
+        for( $i = 0; $i < 10; $i++ ){
             $rand = rand( 0, $count-- );
             $result[] = $all[$rand];
             unset( $all[$rand] );
@@ -49,7 +48,8 @@ class GameController extends Controller {
 
         return view('game.play',[
             'question' => $question,
-            'answers' => $result
+            'answers' => $result,
+            'yn' => $yn ?? null
         ]);
 
     }
