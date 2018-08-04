@@ -1,7 +1,10 @@
 @extends('layouts.game')
 
 @section('content')
-<div class="container">
+    <div class="container">
+        <audio id="game-audio">  
+            <source src="/storage/sounds/{{$question->sound}}" type="audio/mpeg">
+        </audio>
     <form method="post">
         
         
@@ -29,7 +32,6 @@
                 <img src="/storage/images/{{$question->image}}">                
             </div>
             <div class="col-sm-12 mid-div text-center">                
-
                 {{$question->phonetic}}
             </div>
             

@@ -11,6 +11,11 @@ $(function () {
     
     setTimeout(function(){
         $('[data-toggle="tooltip"]').tooltip()
-    }, 5000);
+    }, 10000);
   
 });
+
+
+var player = $('#game-audio')[0]
+
+player.play();

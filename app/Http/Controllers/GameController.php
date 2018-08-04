@@ -22,38 +22,73 @@ class GameController extends Controller {
 
         if( !empty( $_GET ) ){
 
-            if( $_GET['a'] == $_GET['b'] ){
+            if( $_GET['q'] == $_GET['a'] ){
                 $yn = 'ok';
             } else{
                 $yn = 'fail';
             }
         }
+        $r = $this->getRand(10, $yn ?? null);
 
-        $db = _Alphabet::all()->all();
+        return view( 'game.play', [
+            'question' => $r->question,
+            'answers' => $r->result,
+            'yn' => $yn ?? null
+        ] );
+    }
 
+    public function play2(){
 
-        $all = $db;
+        if( !empty( $_GET ) ){
+
+            if( $_GET['q'] == $_GET['a'] ){
+                $yn = 'ok';
+            } else{
+                $yn = 'fail';
+            }
+        }
+        $r = $this->getRand(25, $yn ?? null);
+
+        $answer = _Alphabet::find($_GET['a'] ?? 0);
+        
+        return view( 'game.play2', [
+            'question' => $r->question,
+            'answers' => $r->result,
+            'yn' => $yn ?? null,
+            'awnser' => $answer
+                
+        ] );
+    }
+    
+    
+    private function getRand($nof, $yn){
+        $all = _Alphabet::all()->all();
         $count = count( $all ) - 1;
         $result = [];
-        for( $i = 0; $i < 10; $i++ ){
+        for( $i = 0; $i < $nof; $i++ ){
             $rand = rand( 0, $count-- );
             $result[] = $all[$rand];
             unset( $all[$rand] );
             $all = array_values( $all );
         }
 
+        if($yn === 'fail'){
+            
+            $result[0] = _Alphabet::find($_GET['q']);
+            
+        }
+        
         $question = $result[0];
 
         //
         shuffle( $result );
-
-        return view( 'game.play', [
-            'question' => $question,
-            'answers' => $result,
-            'yn' => $yn ?? null
-        ] );
+        
+        $r = new \stdClass();
+        $r->question = $question;
+        $r->result = $result;
+        return $r;        
     }
-
+    
     public function index(){
 
         Storage::makeDirectory( 'public/images' );
@@ -108,6 +143,8 @@ class GameController extends Controller {
         $oA = _Alphabet::all();
         foreach($oA as $a){            
             $d[] = str_slug($a->phonetic);
+            $a->sound = str_slug($a->phonetic) . '.mp3';
+            $a->save();
         }
         $t = array_diff ( $d, $f);
         
