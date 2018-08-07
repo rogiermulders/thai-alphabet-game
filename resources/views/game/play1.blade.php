@@ -49,7 +49,7 @@
                             <td class="text-center">
                                 <div data-toggle="tooltip" data-html="true" data-placement="bottom" title='<img src="/storage/images/{{$rst->image}}"><br>{{$rst->phonetic}} '>
                                     
-                                    <a href="/game/play?a={{$question->id}}&b={{$rst->id}}">                                    
+                                    <a href="/game/play1?q={{$question->id}}&a={{$rst->id}}">                                    
                                         {{$rst->letter}}
                                     </a>
                                 </div>

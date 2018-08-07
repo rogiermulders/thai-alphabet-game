@@ -19,8 +19,9 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::match(['get','post'],'/game', 'GameController@index')->name('game');
 
-Route::match(['get','post'],'/game/play', 'GameController@play')->name('game-play');
+Route::match(['get','post'],'/game/play1', 'GameController@play1')->name('game-play1');
 Route::match(['get','post'],'/game/play2', 'GameController@play2')->name('game-play2');
+Route::match(['get','post'],'/game/play3', 'GameController@play3')->name('game-play3');
 
 
 Route::match(['get','post'],'/scrape', 'GameController@scrape')->name('home-scrape');

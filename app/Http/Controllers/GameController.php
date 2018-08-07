@@ -18,7 +18,7 @@ class GameController extends Controller {
         $this->middleware( 'auth' );
     }
 
-    public function play(){
+    public function play1(){
 
         if( !empty( $_GET ) ){
 
@@ -30,7 +30,7 @@ class GameController extends Controller {
         }
         $r = $this->getRand(10, $yn ?? null);
 
-        return view( 'game.play', [
+        return view( 'game.play1', [
             'question' => $r->question,
             'answers' => $r->result,
             'yn' => $yn ?? null
@@ -52,6 +52,28 @@ class GameController extends Controller {
         $answer = _Alphabet::find($_GET['a'] ?? 0);
         
         return view( 'game.play2', [
+            'question' => $r->question,
+            'answers' => $r->result,
+            'yn' => $yn ?? null,
+            'awnser' => $answer
+                
+        ] );
+    }
+    public function play3(){
+
+        if( !empty( $_GET ) ){
+
+            if( $_GET['q'] == $_GET['a'] ){
+                $yn = 'ok';
+            } else{
+                $yn = 'fail';
+            }
+        }
+        $r = $this->getRand(5, $yn ?? null);
+
+        $answer = _Alphabet::find($_GET['a'] ?? 0);
+        
+        return view( 'game.play3', [
             'question' => $r->question,
             'answers' => $r->result,
             'yn' => $yn ?? null,
