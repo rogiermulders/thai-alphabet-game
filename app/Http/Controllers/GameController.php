@@ -69,7 +69,7 @@ class GameController extends Controller {
                 $yn = 'fail';
             }
         }
-        $r = $this->getRand(5, $yn ?? null);
+        $r = $this->getRand(15, $yn ?? null);
 
         $answer = _Alphabet::find($_GET['a'] ?? 0);
         
@@ -84,7 +84,7 @@ class GameController extends Controller {
     
     
     private function getRand($nof, $yn){
-        $all = _Alphabet::all()->all();
+        $all = _Alphabet::where('type', 'consonant')->get()->all();
         $count = count( $all ) - 1;
         $result = [];
         for( $i = 0; $i < $nof; $i++ ){
@@ -125,31 +125,31 @@ class GameController extends Controller {
 
                 if( $key !== '_token' && $val ){
 
-                    $contents = file_get_contents( $val );
-                    Storage::put( 'public/temp', $contents );
-                    $test = exif_imagetype( storage_path( 'app/public' ) . '/temp' );
-                    $type = $map[$test];
-
-
-
+                    // IMAGE
+//                    $contents = file_get_contents( $val );
+//                    Storage::put( 'public/temp', $contents );
+//                    $test = exif_imagetype( storage_path( 'app/public' ) . '/temp' );
+//                    $type = $map[$test];                    
+//                    $id = explode( '_', $key )[1];
+//                    $oAlphabet = _Alphabet::find( $id );
+//                    $name = str_slug( $oAlphabet->meaning ) . $type;
+//                    $oAlphabet->image = $name;
+//                    $oAlphabet->save();
+//                    Storage::put( 'public/images/' . $name, $contents );
+                    
                     $id = explode( '_', $key )[1];
                     $oAlphabet = _Alphabet::find( $id );
-
-                    $name = str_slug( $oAlphabet->meaning ) . $type;
-
-
-                    $oAlphabet->image = $name;
+                    
+                    $oAlphabet->class = $val;
                     $oAlphabet->save();
-
-                    Storage::put( 'public/images/' . $name, $contents );
-                }
-            }
+                }                
+            }            
         }
 
-        $oAlphabet = _Alphabet::all();
-
+        
+        $all = _Alphabet::where('type', 'consonant')->get()->all();
         return view( 'game.index', [
-            'oAlphabet' => $oAlphabet
+            'oAlphabet' => $all
                 ] );
     }
     public function scrape(){

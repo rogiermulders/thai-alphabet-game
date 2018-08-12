@@ -14,6 +14,7 @@
                         <td>{{$rst->meaning}}</td>
                         <td>{{$rst->phonetic}}</td>
                         <td><img src="/storage/images/{{$rst->image}}" style="width:80px"></td>
+                        <td>{{$rst->class}}</td>
                         <td><input name="id_{{$rst->id}}">
                         <td><input type="submit" class="btn btn-danger" value="Submit"></td>
                     </tr>

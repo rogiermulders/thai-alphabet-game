@@ -25,3 +25,4 @@ Route::match(['get','post'],'/game/play3', 'GameController@play3')->name('game-p
 
 
 Route::match(['get','post'],'/scrape', 'GameController@scrape')->name('home-scrape');
+Route::match(['get','post'],'/edit', 'GameController@index')->name('game-index');

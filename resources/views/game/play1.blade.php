@@ -40,18 +40,17 @@
         <div class="row">
             <div class="col-sm-12 mid-div">
                 
-                <table class="table table-striped table-hover game-huge">
-                    
-                        @foreach($answers as $i => $rst)
-                        
-                            @if($i % 5 === 0) <tr> @endif
-                                                     
+                <table class="table table-striped table-hover game-huge">                    
+                        @foreach($answers as $i => $rst)                        
+                            @if($i % 5 === 0) <tr> @endif                                                     
                             <td class="text-center">
-                                <div data-toggle="tooltip" data-html="true" data-placement="bottom" title='<img src="/storage/images/{{$rst->image}}"><br>{{$rst->phonetic}} '>
-                                    
+                                <div data-toggle="tooltip" data-html="true" data-placement="bottom" title='<img src="/storage/images/{{$rst->image}}"><br>{{$rst->phonetic}} '>                                    
                                     <a href="/game/play1?q={{$question->id}}&a={{$rst->id}}">                                    
                                         {{$rst->letter}}
-                                    </a>
+                                    </a>                   
+                                </div>
+                                <div style="font-size: 18px">
+                                    {{$rst->class}}
                                 </div>
                             </td>
                         @endforeach
